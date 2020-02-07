@@ -118,6 +118,13 @@ namespace BakaXL.GameCores.Installer.Forge {
 		}
 
 		private void Commander_OutputDataReceived(object sender, DataReceivedEventArgs e) {
+			var data = e.Data;
+			if (data == null) return;
+
+			if (!String.IsNullOrWhiteSpace(data) && data.Contains("Exception in thread")) {
+				throw new Exception("Build Failed!");
+			}
+			
 			if (LogStatus != 0) {
 				Trace.WriteLine($"[Forge-InstallProcessor.NET][Info][Forge-Output] {e.Data}");
 			}
@@ -152,7 +159,9 @@ namespace BakaXL.GameCores.Installer.Forge {
 					carg = carg.Replace("{", "").Replace("}", "");
 					carg = carg.Replace("MINECRAFT_JAR", $"\"{MINECRAFT_JAR}\"");
 					carg = carg.Replace("BINPATCH", $"\"{BINPATCH_PATH_CLIENT}\"");
-					carg = carg.Replace(carg, $"\"{InstallProfile.data[carg]}\"");
+					try {
+						carg = carg.Replace(carg, $"\"{InstallProfile.data[carg].client}\"");
+					} catch { }
 				}
 
 				args.Append($"{carg} ");
