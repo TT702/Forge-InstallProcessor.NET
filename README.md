@@ -1,6 +1,8 @@
 # Forge-InstallProcessor.NET
 C# Methods to Install Minecraft Forge 1.13+
 
+[简体中文](https://github.com/TT702/Forge-InstallProcessor.NET/blob/master/README-CN.md)
+
 ## Requirement
 .Net Framework 4.5 or Higher Due to using the `System.IO.Compression.FileSystem`.  
 You can modify the `GetMainClassFromJar();` Method in `Installer.Processor` in order to running in .Net Framework 4.0(Yes!) or Lower(Maybe?).
