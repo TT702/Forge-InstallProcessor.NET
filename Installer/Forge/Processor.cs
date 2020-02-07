@@ -196,7 +196,7 @@ namespace BakaXL.GameCores.Installer.Forge {
 				name = name.Replace("[", "").Replace("]", "");
 			}
 
-			return PathUtils.GetPath(Path.GetDirectoryName(AppWorkPath), ".minecraft", "libraries", GetLibraryFileName(name));
+			return PathUtils.GetPath(AppWorkPath, ".minecraft", "libraries", GetLibraryFileName(name));
 		}
 
 		/// <summary>
