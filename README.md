@@ -74,6 +74,7 @@ You can remove it from the code if you want.
 
 ## Notice
 The Forge Will be installed at the `<Your exe Path>/.minecraft/versions/<Forge Version>`.
+You Need to Change the Namespace Manully Due to These Code Was Export From BakaXL Source Code.
 
 ## See also
 My friends are also doing some greate job on Installing Forge 1.13+. Please also have a look.
