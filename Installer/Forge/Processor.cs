@@ -160,7 +160,7 @@ namespace BakaXL.GameCores.Installer.Forge {
 					carg = carg.Replace("MINECRAFT_JAR", $"\"{MINECRAFT_JAR}\"");
 					carg = carg.Replace("BINPATCH", $"\"{BINPATCH_PATH_CLIENT}\"");
 					try {
-						carg = carg.Replace(carg, $"\"{InstallProfile.data[carg].client}\"");
+						carg = carg.Replace(carg, $"{InstallProfile.data[carg].client}");
 					} catch { }
 				}
 
