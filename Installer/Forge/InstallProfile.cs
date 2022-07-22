@@ -36,7 +36,7 @@ namespace BakaXL.GameCores.Installer.Forge {
 		public List<InstallProfileProcessors> processors;
 
 		[JsonPropertyName("libraries")]
-		public List<JsonLibrary> libraries;
+		public List<ULauncherCore.Jsons.JsonLibrary> libraries;
 	}
 
 	public class InstallProfileDataContent {
@@ -50,6 +50,9 @@ namespace BakaXL.GameCores.Installer.Forge {
 
 	public class InstallProfileProcessors {
 
+		[JsonPropertyName("sides")]
+		public List<string> sides;
+
 		[JsonPropertyName("jar")]
 		public string jar;
 
@@ -61,83 +64,5 @@ namespace BakaXL.GameCores.Installer.Forge {
 
 		[JsonPropertyName("outputs")]
 		public List<string> outputs;
-	}
-
-	public sealed class JsonLibrary {
-
-		[JsonPropertyName("name")]
-		public string Name { get; set; }
-
-		[JsonPropertyName("url")]
-		public string URL { get; set; }
-
-		[JsonPropertyName("natives")]
-		public Dictionary<string, string> Natives { get; set; }
-
-		[JsonPropertyName("rules")]
-		public List<JsonRule> Rules { get; set; }
-
-		[JsonPropertyName("extract")]
-		public JsonExtract Extract { get; set; }
-
-		[JsonPropertyName("checksums")]
-		public List<string> Checksums { get; set; }
-
-		[JsonPropertyName("downloads")]
-		public JsonDownloads Downloads { get; set; }
-
-		[JsonPropertyName("clientreq")]
-		public bool IsClientRequirement { get; set; } = true;
-
-	}
-
-	public sealed class JsonRule {
-
-		[JsonPropertyName("action")]
-		public string Action { get; set; }
-
-		[JsonPropertyName("os")]
-		public JsonOperatingSystem OS { get; set; }
-
-	}
-
-	public sealed class JsonOperatingSystem {
-
-		[JsonPropertyName("name")]
-		public string Name { get; set; }
-
-	}
-
-	public sealed class JsonExtract {
-
-		[JsonPropertyName("exclude")]
-		public List<string> Exclude { get; set; }
-
-	}
-
-	public sealed class JsonDownloads {
-
-		[JsonPropertyName("artifact")]
-		public JsonDownload Artifact { get; set; }
-
-		[JsonPropertyName("classifiers")]
-		public Dictionary<string, JsonDownload> Classifiers { get; set; }
-
-	}
-
-	public sealed class JsonDownload {
-
-		[JsonPropertyName("url")]
-		public string URL { get; set; }
-
-		[JsonPropertyName("sha1")]
-		public string Hash { get; set; }
-
-		[JsonPropertyName("size")]
-		public int Size { get; set; }
-
-		[JsonPropertyName("path")]
-		public string Path { get; set; }
-
 	}
 }
