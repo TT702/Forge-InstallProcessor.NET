@@ -89,7 +89,20 @@ namespace BakaXL.GameCores.Installer.Forge {
 				}
 
 				current = current + progressSplit;
-				//InstallProgress.Report(new <Your Task Here>() {  });
+				//InstallProgress.Report(new <Your Task Here>() {  });		
+				
+				if(InstallProfile.processors[i].sides != null) {		
+					if (InstallProfile.processors[i].sides[0] == "server") {
+						if (LogStatus != 0) Trace.WriteLine($"[Forge-InstallProcessor.NET][Info][Step #{i+1}] Skip Server Side Process");
+						continue;
+					}
+				}
+
+				if (InstallProfile.processors[i].args[1].Contains("DOWNLOAD_MOJMAPS")) {
+					if (LogStatus != 0) Trace.WriteLine($"[Forge-InstallProcessor.NET][Info][Step #{i+1}] Need to Download Minecraft Client Mapping");
+					DownloadMOJMAPS(InstallProfile.minecraft, InstallProfile.data["MOJMAPS"].client.Replace("\"", ""));
+					continue;
+				}
 
 				if (LogStatus != 0) {
 					Trace.WriteLine($"[Forge-InstallProcessor.NET][Info][Step #{i + 1}] Mixing Args.");
@@ -159,6 +172,10 @@ namespace BakaXL.GameCores.Installer.Forge {
 					carg = carg.Replace("{", "").Replace("}", "");
 					carg = carg.Replace("MINECRAFT_JAR", $"\"{MINECRAFT_JAR}\"");
 					carg = carg.Replace("BINPATCH", $"\"{BINPATCH_PATH_CLIENT}\"");
+					
+					//1.17.1
+					carg = carg.Replace("INSTALLER", $"\"{INSTALLER}\"");
+					carg = carg.Replace("SIDE", $"\"{SIDE}\"");
 					try {
 						carg = carg.Replace(carg, $"{InstallProfile.data[carg].client}");
 					} catch { }
@@ -231,6 +248,30 @@ namespace BakaXL.GameCores.Installer.Forge {
 				pathBase = $"{pathBase}{extinction}";
 				return pathBase;
 			}
+		}
+		
+		/// <summary>
+		/// Download MOJANG_CLIENT_MAPPINGS
+		/// </summary>
+		/// <param name="mcBaseVersion">Minecraft Base Version</param>
+		/// <returns>Default Save Path of Mappings File</returns>
+		public static void DownloadMOJMAPS(string mcBaseVersion, string mappingFileName) {
+
+			if (LogStatus != 0) Trace.WriteLine($"[Forge-InstallProcessor.NET][Info][MOJMAPS] Prepare to Download");	
+			var VersionClientMappingsUrl = GameVersion.Downloads.Client_Mappings.Url.Replace("https://launcher.mojang.com/", "").Replace("https://piston-meta.mojang.com/", "");
+
+			var mappings = "";
+			
+			// DO YOUR STUFF: Download MOJANG Client Mappings
+			
+			if (LogStatus != 0) Trace.WriteLine($"[Forge-InstallProcessor.NET][Info][MOJMAPS] Save to: {mappingFileName}");
+
+			var dire = Path.GetDirectoryName(mappingFileName);
+			if (!Directory.Exists(dire)) Directory.CreateDirectory(dire);
+
+			var sw = new StreamWriter(mappingFileName);
+			sw.Write(mappings);
+			sw.Close();
 		}
 	}
 
